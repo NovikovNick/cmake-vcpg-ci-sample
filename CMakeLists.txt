@@ -1,4 +1,4 @@
-﻿cmake_minimum_required (VERSION 3.15)
+﻿cmake_minimum_required (VERSION 3.21)
 set(VCPKG_TARGET_TRIPLET x64-windows-static)
 set(CMAKE_TOOLCHAIN_FILE "${CMAKE_SOURCE_DIR}/external/vcpkg/scripts/buildsystems/vcpkg.cmake")
 project ("ci-sample"
