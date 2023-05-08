@@ -1,15 +1,8 @@
 {
   "name": "ci-sample",
-  "version": "0.0.0",
+  "version-string": "latest",
   "dependencies": [
-    {
-      "name": "protobuf",
-      "version>=": "3.21.12"
-    },
-    {
-      "name": "eigen3",
-      "version>=": "3.4.0"
-    }
-  ],
-  "builtin-baseline": "c9f906558f9bb12ee9811d6edc98ec9255c6cda5"
+    "protobuf",
+    "eigen3"
+  ]
 }
