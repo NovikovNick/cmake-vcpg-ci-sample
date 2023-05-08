@@ -1,5 +1,4 @@
-name: CMake
-
+name: Sample build
 on:
   push:
     branches: [ "main" ]
@@ -9,29 +8,31 @@ on:
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
   BUILD_TYPE: Release
-
 jobs:
-  build:
-    runs-on: windows-latest
+  job:
+    name: ${{ matrix.os }}-${{ github.workflow }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest]
 
     steps:
-       - uses: actions/checkout@v3
-         with:
-           submodules: true
+      - uses: actions/checkout@v3
+        with:
+          submodules: true
 
-       - uses: lukka/get-cmake@latest
+      - uses: lukka/get-cmake@latest
 
-       - name: Restore from cache and setup vcpkg executable and data files.
-         uses: lukka/run-vcpkg@v11
-         with:
-           vcpkgDirectory: ${{ github.workspace }}/external/vcpkg
+      - name: Restore from cache and setup vcpkg executable and data files.
+        uses: lukka/run-vcpkg@v11
+        with:
+          vcpkgDirectory: ${{ github.workspace }}/external/vcpkg
 
-       - name: Run CMake+vcpkg+Ninja+CTest to build packages and generate/build/test the code.
-         uses: lukka/run-cmake@v10
-         with:
-           configurePreset: 'ninja-multiconfiguration-vcpkg'
-           buildPreset: 'ninja-multiconfiguration-vcpkg'
-           buildPresetAdditionalArgs: "[`--config`, `Release`]"
-           testPreset: 'ninja-multiconfiguration-vcpkg'
-           testPresetAdditionalArgs: "[`--config`, `Release`]"
+      - name: Run CMake+vcpkg+Ninja+CTest to build packages and generate/build/test the code.
+        uses: lukka/run-cmake@v10
+        with:
+          configurePreset: 'ninja-multi-vcpkg'
+          buildPreset: 'ninja-vcpkg-release'
+          testPreset: 'test-release'
 
