@@ -2,5 +2,5 @@
 
 int main() {
   std::cout << "Hello, unit tests!\n";
-  return 1;
+  return 0;
 }
