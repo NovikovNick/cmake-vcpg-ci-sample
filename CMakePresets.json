@@ -7,9 +7,10 @@
   },
   "configurePresets": [
     {
-      "name": "ninja-multi-vcpkg",
-      "displayName": "Ninja Multi-Config",
-      "description": "Configure with vcpkg toolchain and generate Ninja project files for all configurations",
+      "name": "ninja-vcpkg-default",
+      "displayName": "ninja-vcpkg-default",
+      "description": "Configure with vcpkg toolchain and generate Ninja project",
+      "hidden": true,
       "binaryDir": "${sourceDir}/builds/${presetName}",
       "generator": "Ninja",
       "cacheVariables": {
@@ -23,22 +24,52 @@
       "environment": {
         "VCPKG_ROOT": "./external/vcpkg"
       }
+    },
+    {
+      "name": "sample-debug",
+      "inherits": "ninja-vcpkg-default",
+      "displayName": "Sample debug configuration preset",
+      "description": "Sample debug configuration preset",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "sample-release",
+      "inherits": "ninja-vcpkg-default",
+      "displayName": "Sample release configuration preset",
+      "description": "Sample release configuration preset",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      }
     }
   ],
   "buildPresets": [
     {
-      "name": "ninja-vcpkg-release",
-      "displayName": "Build",
+      "name": "sample-build-debug",
+      "displayName": "sample-build-debug",
       "description": "Build with Ninja/vcpkg (Release)",
-      "configurePreset": "ninja-multi-vcpkg"
+      "configurePreset": "sample-debug"
+    },
+    {
+      "name": "sample-build-release",
+      "displayName": "sample-build-release",
+      "description": "Build with Ninja/vcpkg (Release)",
+      "configurePreset": "sample-release"
     }
   ],
   "testPresets": [
     {
-      "name": "test-release",
-      "displayName": "Test",
-      "description": "Test",
-      "configurePreset": "ninja-multi-vcpkg"
+      "name": "sample-test-debug",
+      "displayName": "sample-test-debug",
+      "description": "sample-test-debug",
+      "configurePreset": "sample-debug"
+    },
+    {
+      "name": "sample-test-release",
+      "displayName": "sample-test-release",
+      "description": "sample-test-release",
+      "configurePreset": "sample-release"
     }
   ]
 }
